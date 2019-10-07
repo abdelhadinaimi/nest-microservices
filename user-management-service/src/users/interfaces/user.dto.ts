@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsString, IsEmail } from 'class-validator';
 
 export class UserIdRequestParamsDto {
   @IsString()
@@ -7,9 +7,11 @@ export class UserIdRequestParamsDto {
 
 export class UserDto {
   @IsString()
-  userId!: string;
+  userId: string;
   @IsString()
-  firstName!: string;
+  firstname!: string;
   @IsString()
-  lastName!: string;
+  lastname!: string;
+  @IsEmail()
+  email!: string;
 }

@@ -6,7 +6,7 @@ import { UserDto } from "../interfaces/user.dto";
 
 export class User extends AggregateRoot {
 
-  constructor(private readonly id: string) {
+  constructor(userId: string, userDto: UserDto) {
     super();
   }
 

@@ -14,9 +14,8 @@ export class UsersController {
     private readonly queryBus: QueryBus,
   ) { }
 
-  @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  // @EventPattern('create_user')
+  @EventPattern('register_user')
   async create(@Body() userDto: UserDto) {
     Logger.log("In create", "UsersController");
     return this.commandBus.execute(new CreateUserCommand(userDto));

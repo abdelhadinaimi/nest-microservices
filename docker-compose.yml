@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  redis:
+    image: 'bitnami/redis:5.0'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
+  user-management-service:
+    build: './user-management-service'
+    restart: always
+    environment:
+      - REDIS_HOST=${REDDIT_HOST}
+    depends_on:
+      - redis
+    command: ${CONTAINER_COMMAND_NODE}
+  persistance-service:
+    build: './persistance-service'
+    restart: always
+    environment:
+      - REDIS_HOST=${REDDIT_HOST}
+    depends_on:
+      - redis
+  api:
+    build: './api'
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      - REDIS_HOST=${REDDIT_HOST}
+    depends_on:
+      - redis
+    command: ${CONTAINER_COMMAND_NODE}
+volumes:
+  redis_data:
+    driver: local

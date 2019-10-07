@@ -1,1 +1,2 @@
-## User manamgement service using CQRS Event sourcing and Redis
+## user-management-service
+User management service using CQRS Event sourcing and Redis

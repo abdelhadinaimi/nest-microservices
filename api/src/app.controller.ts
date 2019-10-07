@@ -10,4 +10,9 @@ export class AppController {
   async sum(@Body() arrayDto: ArrayDto): Promise<number> {
     return this.appService.sum(arrayDto);
   }
+
+  @Get()
+  root(): string {
+    return "Hello I am authorized !";
+  }
 }

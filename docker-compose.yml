@@ -19,8 +19,8 @@ services:
     depends_on:
       - redis
     command: ${CONTAINER_COMMAND_NODE}
-  persistance-service:
-    build: './persistance-service'
+  media-service:
+    build: './media-service'
     restart: always
     environment:
       - REDIS_HOST=${REDDIT_HOST}

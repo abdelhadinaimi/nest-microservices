@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="persistance-service:war exploded" />
+      <artifact name="media-service:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
@@ -66,10 +66,10 @@
   </component>
   <component name="RunManager" selected="Docker.Dockerfile">
     <configuration name="Unnamed" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 18.0.0.Final" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/persistance-service-1.0-SNAPSHOT/" />
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/media-service-1.0-SNAPSHOT/" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="persistance-service:war exploded">
+        <artifact name="media-service:war exploded">
           <settings />
         </artifact>
       </deployment>
@@ -133,12 +133,12 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="persistance-service:war exploded" />
+          <artifact name="media-service:war exploded" />
         </option>
       </method>
     </configuration>
-    <configuration name="All in persistance-service" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="persistance-service" />
+    <configuration name="All in media-service" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="media-service" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -261,7 +261,7 @@
       </deployment>
       <method v="2">
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="persistance-service:war" />
+          <artifact name="media-service:war" />
         </option>
       </method>
     </configuration>
@@ -270,7 +270,7 @@
       <item itemvalue="Docker.Dockerfile" />
       <item itemvalue="JBoss Server.Unnamed" />
       <item itemvalue="JSR45 Compatible Server.Generic" />
-      <item itemvalue="JUnit.All in persistance-service" />
+      <item itemvalue="JUnit.All in media-service" />
     </list>
     <recent_temporary>
       <list>

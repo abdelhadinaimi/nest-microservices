@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="persistance-service" />
+        <module name="media-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="persistance-service" target="1.8" />
+      <module name="media-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

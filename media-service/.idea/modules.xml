@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/persistance-service.iml" filepath="$PROJECT_DIR$/persistance-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/media-service.iml" filepath="$PROJECT_DIR$/media-service.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>media-service</context-root>
+</jboss-web>

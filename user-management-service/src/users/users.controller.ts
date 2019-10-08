@@ -1,5 +1,5 @@
-import { Controller, Body, Get, Post, Logger, ValidationPipe, UsePipes } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
+import { Controller, Body, Get, Logger } from '@nestjs/common';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateUserCommand } from './commands/impl/create-user.command';
 import { UserDto } from './interfaces/user.dto';
@@ -14,13 +14,18 @@ export class UsersController {
     private readonly queryBus: QueryBus,
   ) { }
 
-  @UsePipes(new ValidationPipe({ transform: true }))
-  @EventPattern('register_user')
-  async create(@Body() userDto: UserDto) {
+  @MessagePattern('get_users')
+  async get(): Promise<string> {
+    return "hello";
+  }
+
+
+  @MessagePattern('register_user')
+  async create(@Body() userDto: UserDto){
     Logger.log("In create", "UsersController");
     return this.commandBus.execute(new CreateUserCommand(userDto));
   }
-  @Get()
+  @MessagePattern("get_users")
   async findAll(): Promise<User[]> {
     return this.queryBus.execute(new GetUsersQuery());
   }

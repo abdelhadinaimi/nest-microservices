@@ -5,13 +5,18 @@ import { UserDto } from "../interfaces/user.dto";
 
 
 export class User extends AggregateRoot {
+  [x: string]: any;
 
-  constructor(userId: string, userDto: UserDto) {
+  constructor(userId: string) {
     super();
   }
 
-  createUser(userDto: UserDto) {
-    this.apply(new UserCreatedEvent(userDto));
+  setData(data) {
+    this.data = data;
   }
+
+  createUser() {
+    this.apply(new UserCreatedEvent(this.data));
+  } 
   
 }

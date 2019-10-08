@@ -9,7 +9,7 @@ export class GetUsersHandler implements IQueryHandler<GetUsersHandler> {
   constructor(private readonly userRepository: UserRepository) {}
   
   async execute(query: GetUsersHandler): Promise<any> {
-    Logger.log('Async GetHeroesQuery...','GetUsersHandler');
+    Logger.log('Async GetUsersQuery...','GetUsersHandler');
     return this.userRepository.findAll();
   }
 

@@ -7,7 +7,7 @@ import { Logger } from "@nestjs/common";
 export class UserCreatedHandler implements IEventHandler<UserCreatedEvent> {
 
   handle(event: UserCreatedEvent) {
-    Logger.log(event, 'UserCreatedEvent');
+    Logger.log("In Event", 'UserCreatedEvent');
   }
 
 }

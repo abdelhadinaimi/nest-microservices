@@ -8,6 +8,10 @@ export class UsersService {
 constructor(@Inject(USERS_SERVICE) private readonly client: ClientProxy) {}
 
   register(registerUserDto: RegisterUserDto) {
-    return this.client.emit("register_user",registerUserDto);
+    return this.client.send("register_user",registerUserDto);
+  }
+
+  get() {
+    return this.client.send("get_users",{});
   }
 }

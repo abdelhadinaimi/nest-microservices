@@ -37,5 +37,14 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.10.19" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.glassfish:javax.json:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.axonframework:axon-eventsourcing:4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.axonframework:axon-modelling:4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.axonframework:axon-messaging:4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.4.11.1" level="project" />
+    <orderEntry type="library" name="Maven: xpp3:xpp3:1.1.4c" level="project" />
+    <orderEntry type="library" name="Maven: org.axonframework:axon-configuration:4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.axonframework:axon-disruptor:4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.lmax:disruptor:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.28" level="project" />
   </component>
 </module>

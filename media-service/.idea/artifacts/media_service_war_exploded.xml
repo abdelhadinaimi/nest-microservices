@@ -17,6 +17,15 @@
           <element id="library" level="project" name="Maven: javax:javaee-api:8.0" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.0" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: org.axonframework:axon-eventsourcing:4.2" />
+          <element id="library" level="project" name="Maven: org.axonframework:axon-modelling:4.2" />
+          <element id="library" level="project" name="Maven: org.axonframework:axon-messaging:4.2" />
+          <element id="library" level="project" name="Maven: com.thoughtworks.xstream:xstream:1.4.11.1" />
+          <element id="library" level="project" name="Maven: xpp3:xpp3:1.1.4c" />
+          <element id="library" level="project" name="Maven: org.axonframework:axon-configuration:4.2" />
+          <element id="library" level="project" name="Maven: org.axonframework:axon-disruptor:4.2" />
+          <element id="library" level="project" name="Maven: com.lmax:disruptor:3.4.2" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.28" />
         </element>
       </element>
       <element id="directory" name="META-INF">

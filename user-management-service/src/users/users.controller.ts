@@ -16,18 +16,23 @@ export class UsersController {
 
   @MessagePattern('get_users')
   async get(): Promise<string> {
-    return "hello";
+    return 'hello';
   }
 
 
   @MessagePattern('register_user')
-  async create(@Body() userDto: UserDto){
-    Logger.log("In create", "UsersController");
+  async create(@Body() userDto: UserDto) {
+    Logger.log('In create', 'UsersController');
     return this.commandBus.execute(new CreateUserCommand(userDto));
   }
-  @MessagePattern("get_users")
+  @MessagePattern('get_users')
   async findAll(): Promise<User[]> {
     return this.queryBus.execute(new GetUsersQuery());
+  }
+
+  @EventPattern('user_created')
+  async catchEvent(@Body() userDto: UserDto) {
+    Logger.log('user_created catched !' + userDto, 'UsersController');
   }
 }
 

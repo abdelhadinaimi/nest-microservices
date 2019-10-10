@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { USERS_SERVICE } from './users.constants';
+import { REDIS_SERVICE } from './users.constants';
 
 const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
@@ -10,7 +10,7 @@ const REDIS_PORT = process.env.REDIS_PORT || 6379;
 @Module({
   imports: [
     ClientsModule.register([{
-      name: USERS_SERVICE, transport: Transport.REDIS,
+      name: REDIS_SERVICE, transport: Transport.REDIS,
       options: { url: `redis://${REDIS_HOST}:${REDIS_PORT}` }
     }]),
   ],

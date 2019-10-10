@@ -6,22 +6,28 @@ import { UsersController } from './users.controller';
 import { QueryHandlers } from './queries/handlers';
 import { UserRepository } from './repository/user.repository';
 import { UsersSagas } from './sagas/users.sagas';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { REDIS_SERVICE } from './users.constants';
+import { ClientProxyFactory } from '@nestjs/microservices';
+import { AMQ_PROXY } from '../app.constants';
+import { ConfigService } from '../config/config.service';
 
-const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const AMQ_HOST = process.env.AMQ_HOST || 'localhost';
+const AMQ_PORT = process.env.AMQ_PORT || 5672;
+const AMQ_USER = process.env.AMQ_USER || 'user';
+const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'bitnami';
 
 @Module({
   imports: [
     CqrsModule,
-    ClientsModule.register([{
-      name: REDIS_SERVICE, transport: Transport.REDIS,
-      options: { url: `redis://${REDIS_HOST}:${REDIS_PORT}` }
-    }]),
   ],
   controllers: [UsersController],
   providers: [
+    {
+      provide: AMQ_PROXY,
+      useFactory: (configService: ConfigService) => {
+        return ClientProxyFactory.create(configService.getRabitMQOptions());
+      },
+      inject: [ConfigService],
+    },
     UserRepository,
     ...CommandHandlers,
     ...EventHandlers,

@@ -62,6 +62,8 @@
   },
   "dependencies": {
     "@nestjs/microservices": "^6.8.2",
+    "amqp-connection-manager": "^3.0.0",
+    "amqplib": "^0.5.5",
     "redis": "^2.8.0"
   }
 }

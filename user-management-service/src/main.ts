@@ -1,20 +1,25 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Transport } from '@nestjs/microservices';
+import { Inject } from '@nestjs/common';
+import { ConfigService } from './config/config.service';
 
-const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const AMQ_HOST = process.env.AMQ_HOST || 'localhost';
+const AMQ_PORT = process.env.AMQ_PORT || 5672;
+const AMQ_USER = process.env.AMQ_USER || 'user';
+const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'bitnami';
 
 async function bootstrap() {
+ 
   const app = await NestFactory.createMicroservice(AppModule, {
-    transport: Transport.REDIS,
+    transport: Transport.RMQ,
     options: {
-      retryAttempts: 5,
-      retryDelay: 1000,
-      url: `redis://${REDIS_HOST}:${REDIS_PORT}`
-    }
+      urls: [`amqp://${AMQ_USER}:${AMQ_PASSWORD}@${AMQ_HOST}:${AMQ_PORT}`],
+      queue: 'users_queue',
+      queueOptions: { durable: false },
+    },
   });
-
+  
   await app.listenAsync();
 
   // const app = await NestFactory.create(AppModule);

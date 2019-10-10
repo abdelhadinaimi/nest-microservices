@@ -19,7 +19,6 @@ export class UsersController {
     return 'hello';
   }
 
-
   @MessagePattern('register_user')
   async create(@Body() userDto: UserDto) {
     Logger.log('In create', 'UsersController');

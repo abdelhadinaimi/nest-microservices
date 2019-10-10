@@ -10,11 +10,16 @@ const REDIS_PORT = process.env.REDIS_PORT || 6379;
 @Module({
   imports: [
     ClientsModule.register([{
-      name: REDIS_SERVICE, transport: Transport.REDIS,
-      options: { url: `redis://${REDIS_HOST}:${REDIS_PORT}` }
+      name: REDIS_SERVICE,
+      transport: Transport.RMQ,
+      options: {
+        urls: [`amqp://user:bitnami@rabbitmq:5672`],
+        queue: 'users_queue',
+        queueOptions: { durable: false },
+      },
     }]),
   ],
   controllers: [UsersController],
   providers: [UsersService],
 })
-export class UsersModule {}
+export class UsersModule { }

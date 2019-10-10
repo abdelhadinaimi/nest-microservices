@@ -26,13 +26,13 @@ public class CDISetup {
 
     @Produces
     @ApplicationScoped
-    CommandBus producesCommandBus() {
+    CommandBus produceCommandBus() {
         return SimpleCommandBus.builder().build();
     }
 
     @Produces
     @ApplicationScoped
-    QueryBus producesQueryBus() {
+    QueryBus produceQueryBus() {
         return SimpleQueryBus.builder().build();
     }
 

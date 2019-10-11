@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AMQ_SERVICE } from '../app.constants';
+import { MediasController } from './medias.controller';
+import { MediasService } from './medias.service';
 
 @Module({
   imports: [
@@ -11,12 +11,12 @@ import { AMQ_SERVICE } from '../app.constants';
       transport: Transport.RMQ,
       options: {
         urls: [`amqp://user:bitnami@localhost:5672`],
-        queue: 'users_queue',
+        queue: 'medias_queue',
         queueOptions: { durable: false },
       },
     }]),
   ],
-  controllers: [UsersController],
-  providers: [UsersService],
+  controllers: [MediasController],
+  providers: [MediasService],
 })
-export class UsersModule { }
+export class MediasModule {}

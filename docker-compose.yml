@@ -30,6 +30,7 @@ services:
     depends_on:
       - rabbitmq
       - ms-mongodb
+    command: ${CONTAINER_COMMAND_NODE}
   ms-mongodb:
     image: mongo
     volumes:

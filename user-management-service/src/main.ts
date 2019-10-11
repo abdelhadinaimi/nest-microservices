@@ -10,7 +10,7 @@ const AMQ_USER = process.env.AMQ_USER || 'user';
 const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'bitnami';
 
 async function bootstrap() {
- 
+  
   const app = await NestFactory.createMicroservice(AppModule, {
     transport: Transport.RMQ,
     options: {

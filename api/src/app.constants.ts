@@ -1,1 +1,1 @@
-export const AMQ_SERVICE = 'AMQ_SERVICE';
+export const AMQ_PROXY = 'AMQ_PROXY';

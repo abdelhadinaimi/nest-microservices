@@ -14,7 +14,7 @@ export class ConfigService {
       name: AMQ_PROXY,
       transport: Transport.RMQ,
       options: {
-        urls: [`amqp://${'media_service'}:${'media_service'}@${AMQ_HOST}:${AMQ_PORT}`],
+        urls: [`amqp://${AMQ_USER}:${AMQ_PASSWORD}@${AMQ_HOST}:${AMQ_PORT}`],
         queue: 'medias_queue',
         queueOptions: { durable: false },
       },

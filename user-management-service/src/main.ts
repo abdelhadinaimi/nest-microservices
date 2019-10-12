@@ -6,8 +6,8 @@ import { ConfigService } from './config/config.service';
 
 const AMQ_HOST = process.env.AMQ_HOST || 'localhost';
 const AMQ_PORT = process.env.AMQ_PORT || 5672;
-const AMQ_USER = process.env.AMQ_USER || 'user';
-const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'bitnami';
+const AMQ_USER = process.env.AMQ_USER || 'user_service';
+const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'user_service';
 
 async function bootstrap() {
   

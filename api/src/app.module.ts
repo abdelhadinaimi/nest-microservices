@@ -15,7 +15,7 @@ import { MediasModule } from './medias/medias.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { 
+export class AppModule {
   public configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthenticationMiddleware)

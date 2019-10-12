@@ -10,12 +10,6 @@ services:
       - '15672:15672'
     volumes:
       - 'rabbitmq_data:/bitnami'
-  user-management-service:
-    build: './user-management-service'
-    restart: always
-    depends_on:
-      - rabbitmq
-    command: ${CONTAINER_COMMAND_NODE}
   api:
     build: './api'
     restart: always
@@ -24,6 +18,18 @@ services:
     depends_on:
       - rabbitmq
     command: ${CONTAINER_COMMAND_NODE}
+    environment:
+      AMQ_HOST: rabbitmq
+  user-management-service:
+    build: './user-management-service'
+    restart: always
+    depends_on:
+      - rabbitmq
+    command: ${CONTAINER_COMMAND_NODE}
+    environment:
+      AMQ_HOST: rabbitmq
+      AMQ_USER: user_service
+      AMQ_PASSWORD: user_service
   media-service:
     build: './media-service'
     restart: always
@@ -31,6 +37,10 @@ services:
       - rabbitmq
       - ms-mongodb
     command: ${CONTAINER_COMMAND_NODE}
+    environment:
+      AMQ_HOST: rabbitmq
+      AMQ_USER: media_service
+      AMQ_PASSWORD: media_service
   ms-mongodb:
     image: mongo
     volumes:

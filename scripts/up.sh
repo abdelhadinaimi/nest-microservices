@@ -1,6 +1,6 @@
 #!/bin/sh
 
 export CONTAINER_COMMAND_NODE="npm run start"
-export REDDIT_HOST="redis"
+export AMQ_HOST="rabbitmq"
 
 docker-compose up --build

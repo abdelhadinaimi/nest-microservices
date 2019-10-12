@@ -2,8 +2,6 @@ import { Controller, Post, Logger, Get, Body } from "@nestjs/common";
 import { CreateMediaDto } from "./dto/create-media.dto";
 import { MediasService } from "./medias.service";
 
-
-
 @Controller("medias")
 export class MediasController {
   constructor(private readonly mediasService: MediasService) { }

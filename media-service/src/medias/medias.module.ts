@@ -9,10 +9,14 @@ import { MediasSagas } from './sagas/medias.sagas';
 import { ClientProxyFactory } from '@nestjs/microservices';
 import { AMQ_PROXY } from '../app.constants';
 import { ConfigService } from '../config/config.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MediaSchema } from './schemas/media.schema';
+import { MediasService } from './medias.service';
 
 @Module({
   imports: [
     CqrsModule,
+    MongooseModule.forFeature([{ name: 'Media', schema: MediaSchema }]),
   ],
   controllers: [MediasController],
   providers: [
@@ -23,6 +27,7 @@ import { ConfigService } from '../config/config.service';
       },
       inject: [ConfigService],
     },
+    MediasService,
     MediaRepository,
     ...CommandHandlers,
     ...EventHandlers,

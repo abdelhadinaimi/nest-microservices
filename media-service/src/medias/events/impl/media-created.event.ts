@@ -1,8 +1,8 @@
 import { IEvent } from "@nestjs/cqrs";
-import { MediaDto } from "src/medias/interfaces/media.dto";
+import { Media } from "src/medias/models/media.model";
 
 
 export class MediaCreatedEvent implements IEvent {
   constructor(
-    public readonly mediaDto: MediaDto) {}
+    public readonly media: Media) {}
 }

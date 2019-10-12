@@ -2,9 +2,9 @@ import { Controller, Body, Get, Logger } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateMediaCommand } from './commands/impl/create-media.command';
-import { MediaDto } from './interfaces/media.dto';
 import { Media } from './models/media.model';
 import { GetMediasQuery } from './queries/impl';
+import { CreateMediaDto } from './dto/create-media.dto';
 
 @Controller('medias')
 export class MediasController {
@@ -20,9 +20,9 @@ export class MediasController {
   }
 
   @MessagePattern('create_media')
-  async create(@Body() mediaDto: MediaDto) {
+  async create(@Body() createMediaDto: CreateMediaDto) {
     Logger.log('In create', 'MediasController');
-    return this.commandBus.execute(new CreateMediaCommand(mediaDto));
+    return this.commandBus.execute(new CreateMediaCommand(createMediaDto));
   }
   @MessagePattern('get_medias')
   async findAll(): Promise<Media[]> {
@@ -30,8 +30,8 @@ export class MediasController {
   }
 
   @EventPattern('media_created')
-  async catchEvent(@Body() mediaDto: MediaDto) {
-    Logger.log('media_created catched !' + mediaDto, 'MediasController');
+  async catchEvent(@Body() createMediaDto: CreateMediaDto) {
+    Logger.log('media_created catched !' + createMediaDto, 'MediasController');
   }
 }
 

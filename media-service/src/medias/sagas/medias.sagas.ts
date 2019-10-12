@@ -17,8 +17,8 @@ export class MediasSagas {
         ofType(MediaCreatedEvent),
         delay(1000),
         map(event => {
-          Logger.log('Inside [MediasSagas] Saga', 'MediasSagas');
-          this.client.emit('media_created',event.mediaDto); // publishes an event to rabbitMQ
+          Logger.log(event.media, 'MediasSagas');
+          this.client.emit('media_created',event.media); // publishes an event to rabbitMQ
           return null;
         }),
       )

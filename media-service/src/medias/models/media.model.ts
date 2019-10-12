@@ -1,7 +1,5 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 import { MediaCreatedEvent } from "../events/impl/media-created.event";
-import { MediaDto } from "../interfaces/media.dto";
-
 
 
 export class Media extends AggregateRoot {
@@ -17,6 +15,6 @@ export class Media extends AggregateRoot {
 
   createMedia() {
     this.apply(new MediaCreatedEvent(this.data));
-  } 
-  
+  }
+
 }

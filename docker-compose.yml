@@ -44,12 +44,18 @@ services:
   ms-mongodb:
     image: mongo
     volumes:
-     - "/var/lib/ms-mongodb:/data/db"
+     - 'ms-mongodb_data:/data/db'
+     - './mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro'
     ports:
      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: mediasDB
+      MONGO_NON_ROOT_USERNAME: medias_user
+      MONGO_NON_ROOT_PASSWORD: medias_pass
 volumes:
   rabbitmq_data:
+    driver: local
+  ms-mongodb_data:
     driver: local

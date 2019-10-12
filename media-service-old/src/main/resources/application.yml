@@ -1,9 +1,0 @@
-axon:
-  amqp:
-    exchange: media
-
-spring:
-  datasource:
-    url: mongodb://localhost:27017/media
-    username: root
-    password: example

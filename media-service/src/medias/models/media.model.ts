@@ -1,20 +1,20 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 import { MediaCreatedEvent } from "../events/impl/media-created.event";
+import { MediaUpdatedEvent } from "../events/impl/media-updated.event";
+import { UpdateMediaDto } from "../dto/update-media.dto";
+import { CreateMediaDto } from "../dto/create-media.dto";
 
 
 export class Media extends AggregateRoot {
-  [x: string]: any;
-
-  constructor(mediaId: string) {
+  constructor(private readonly id: string) {
     super();
   }
 
-  setData(data) {
-    this.data = data;
+  createMedia(createMediaDto: CreateMediaDto) {
+    this.apply(new MediaCreatedEvent(this.id, createMediaDto));
   }
 
-  createMedia() {
-    this.apply(new MediaCreatedEvent(this.data));
+  updateMedia(updateMediaDto: UpdateMediaDto) {
+    this.apply(new MediaUpdatedEvent(this.id, updateMediaDto));
   }
-
 }

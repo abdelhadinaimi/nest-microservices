@@ -5,6 +5,8 @@ import { CreateMediaCommand } from './commands/impl/create-media.command';
 import { Media } from './models/media.model';
 import { GetMediasQuery } from './queries/impl';
 import { CreateMediaDto } from './dto/create-media.dto';
+import { UpdateMediaDto } from './dto/update-media.dto';
+import { UpdateMediaCommand } from './commands/impl/update-media.command';
 
 @Controller('medias')
 export class MediasController {
@@ -24,6 +26,13 @@ export class MediasController {
     Logger.log('In create', 'MediasController');
     return this.commandBus.execute(new CreateMediaCommand(createMediaDto));
   }
+
+  @MessagePattern('update_media')
+  async update(@Body() updateMediaDto: UpdateMediaDto) {
+    Logger.log('In update', 'MediasController');
+    return this.commandBus.execute(new UpdateMediaCommand(updateMediaDto));
+  }
+
   @MessagePattern('get_medias')
   async findAll(): Promise<Media[]> {
     return this.queryBus.execute(new GetMediasQuery());

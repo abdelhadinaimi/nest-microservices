@@ -17,7 +17,7 @@ export class CreateMediaHandler implements ICommandHandler<CreateMediaCommand>{
     const media = this.publisher.mergeObjectContext(
       await this.repository.createMedia(createMediaDto)
     );
-    media.createMedia();
+    media.createMedia(createMediaDto);
     media.commit();
     return { success: true };
   }

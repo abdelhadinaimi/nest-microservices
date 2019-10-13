@@ -1,8 +1,8 @@
-import { IsString, IsUUID } from 'class-validator';
+import { IsString, IsUUID, IsMongoId } from 'class-validator';
 
 export class CreateMediaDto {
 
-  @IsUUID()
+  @IsMongoId()
   _id: string;
   
   @IsString()

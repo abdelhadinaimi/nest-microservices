@@ -1,10 +1,11 @@
 import { IMedia } from "../interfaces/media.interface";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, Error as MongooseError } from "mongoose";
 import { CreateMediaDto } from "../dto/create-media.dto";
 import { Media } from "../models/media.model";
 import { UpdateMediaDto } from "../dto/update-media.dto";
-import { UpdateWriteOpResult } from "mongodb";
+import { Logger } from "@nestjs/common";
+import { ErrorMessages } from "../medias.constants";
 
 
 export class MediaRepository {
@@ -17,11 +18,26 @@ export class MediaRepository {
   }
 
   async updateMedia(updateMediaDto: UpdateMediaDto): Promise<Media> {
-    const mediaToUpdate: IMedia = await this.mediaModel.findById(updateMediaDto._id).exec();
-    // TODO Check for exception NotFound
-    await mediaToUpdate.update(updateMediaDto).exec();
-    // TODO Check if update was successful
-    return new Media(updateMediaDto._id);
+    try {
+      await this.mediaModel.updateOne({ _id: updateMediaDto._id }, updateMediaDto).exec();
+      // TODO Check if update was successful
+      return new Media(updateMediaDto._id);
+    }
+    catch (err) {
+      throw new Error(ErrorMessages.FETCHING_DB);
+    }
+  }
+
+  async findById(id: String): Promise<IMedia> {
+    try {
+      return await this.mediaModel.findById(id).exec();
+    }
+    catch (err) {
+      if (err.message instanceof MongooseError.CastError) {
+        throw new Error(ErrorMessages.MEDIA_NOT_FOUND);
+      }
+      throw new Error(ErrorMessages.FETCHING_DB);
+    }
   }
 
   async findAll(): Promise<IMedia[]> {

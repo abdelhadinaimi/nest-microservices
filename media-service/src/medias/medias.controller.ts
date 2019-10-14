@@ -30,7 +30,15 @@ export class MediasController {
   @MessagePattern('update_media')
   async update(@Body() updateMediaDto: UpdateMediaDto) {
     Logger.log('In update', 'MediasController');
-    return this.commandBus.execute(new UpdateMediaCommand(updateMediaDto));
+    try {
+      return await this.commandBus.execute(new UpdateMediaCommand(updateMediaDto));
+    }
+    catch (e) {
+      return {
+        success: false,
+        error: e.message,
+      }
+    }
   }
 
   @MessagePattern('get_medias')

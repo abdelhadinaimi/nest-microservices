@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Logger } from '@nestjs/common';
+import { Controller, Body, Get, Logger, CacheKey, UseInterceptors, CacheInterceptor } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateMediaCommand } from './commands/impl/create-media.command';
@@ -41,6 +41,8 @@ export class MediasController {
     }
   }
 
+  @CacheKey('get_medias')
+  @UseInterceptors(CacheInterceptor)
   @MessagePattern('get_medias')
   async findAll(): Promise<Media[]> {
     return this.queryBus.execute(new GetMediasQuery());

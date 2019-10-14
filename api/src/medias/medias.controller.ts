@@ -1,4 +1,4 @@
-import { Controller, Post, Logger, Get, Body, Param, Put } from "@nestjs/common";
+import { Controller, Post, Logger, Get, Body, Param, Put, UseInterceptors, CacheInterceptor } from "@nestjs/common";
 import { CreateMediaDto } from "./dto/create-media.dto";
 import { MediasService } from "./medias.service";
 import { UpdateMediaDto } from "./dto/update-media.dto";
@@ -27,6 +27,7 @@ export class MediasController {
   }
 
   @Get()
+  // @UseInterceptors(CacheInterceptor) might cause some inconsistency issues if we have two versions of the cache in 2 diffrent services?
   async get() {
     return this.mediasService.get();
   }

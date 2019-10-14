@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { ClientProxyFactory } from '@nestjs/microservices';
 import { AMQ_PROXY } from '../app.constants';
 import { MediasController } from './medias.controller';
@@ -6,6 +6,7 @@ import { MediasService } from './medias.service';
 import { ConfigService } from '../config/config.service';
 
 @Module({
+  imports: [CacheModule.register()],
   controllers: [MediasController],
   providers: [
     MediasService,

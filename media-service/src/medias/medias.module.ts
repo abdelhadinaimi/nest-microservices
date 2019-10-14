@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CommandHandlers } from './commands/handlers';
 import { EventHandlers } from './events/handlers';
@@ -17,6 +17,7 @@ import { MediasService } from './medias.service';
   imports: [
     CqrsModule,
     MongooseModule.forFeature([{ name: 'Media', schema: MediaSchema }]),
+    CacheModule.register(),
   ],
   controllers: [MediasController],
   providers: [

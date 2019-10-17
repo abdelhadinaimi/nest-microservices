@@ -3,6 +3,7 @@ import { CreateMediaDto } from './dto/create-media.dto';
 import { AMQ_PROXY } from '../app.constants';
 import { ClientProxy } from '@nestjs/microservices';
 import { UpdateMediaDto } from './dto/update-media.dto';
+import { Media } from './interfaces/media.interface';
 
 @Injectable()
 export class MediasService {
@@ -17,6 +18,6 @@ export class MediasService {
   }
 
   get() {
-    return this.client.send("get_medias", {});
+    return this.client.send<Media[]>("get_medias", {});
   }
 }

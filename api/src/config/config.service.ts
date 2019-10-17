@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { ClientProviderOptions } from '@nestjs/microservices/module/interfaces/clients-module.interface';
 import { Transport } from '@nestjs/common/enums/transport.enum';
 import { AMQ_PROXY } from '../app.constants';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 const AMQ_HOST = process.env.AMQ_HOST || 'localhost';
 const AMQ_PORT = process.env.AMQ_PORT || 5672;
@@ -15,7 +15,14 @@ export class ConfigService {
   private readonly envConfig: { [key: string]: string };
 
   constructor(filePath: string) {
-    this.envConfig = dotenv.parse(fs.readFileSync(filePath))
+    try {
+      this.envConfig = dotenv.parse(fs.readFileSync(filePath));;
+    } catch (e) {
+      Logger.error(`${filePath} file doens't exist please add it.`);
+    }
+    finally {
+      this.envConfig = {};
+    }
   }
 
   get(key: string): string {

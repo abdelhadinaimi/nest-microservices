@@ -15,20 +15,22 @@ export class MediasController {
   constructor(private readonly mediasService: MediasService) { }
 
   @Post()
-  async create(@Body() createMediaDto: CreateMediaDto) {
-    const r = await this.mediasService.create(createMediaDto);
-    Logger.log(r, "MediasController");
-    return r;
+  create(@Body() createMediaDto: CreateMediaDto) {
+    return this.mediasService.create(createMediaDto);
   }
 
   @Put('/:id')
-  async update(@Param() params: FindMongoId, @Body() updateMediaDto: UpdateMediaDto) {
-    return await this.mediasService.update(params.id, updateMediaDto);
+  update(@Param() params: FindMongoId, @Body() updateMediaDto: UpdateMediaDto) {
+    return this.mediasService.update(params.id, updateMediaDto);
   }
 
+  @Get('/:id')
+  getById(@Param() params: FindMongoId) {
+    return this.mediasService.getById(params.id);
+  }
   @Get()
   // @UseInterceptors(CacheInterceptor) might cause some inconsistency issues if we have two versions of the cache in 2 diffrent services?
-  async get() {
+  get() {
     return this.mediasService.get();
   }
 }

@@ -17,6 +17,10 @@ export class MediasService {
     return this.client.send("update_media", { _id, ...updateMediaDto });
   }
 
+  getById(_id: string) {
+    return this.client.send<Media>("get_media_by_id", { _id });
+  }
+
   get() {
     return this.client.send<Media[]>("get_medias", {});
   }

@@ -8,7 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [
     MediasModule,
     ConfigModule,
-    MongooseModule.forRoot('mongodb://medias_user:medias_pass@localhost:27017/mediasDB', { useNewUrlParser: true }),
+    MongooseModule.forRoot('mongodb://medias_user:medias_pass@localhost:27017/mediasDB', { useNewUrlParser: true, useFindAndModify: false }),
   ]
 })
 export class AppModule { }

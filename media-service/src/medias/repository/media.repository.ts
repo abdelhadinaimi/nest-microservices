@@ -6,6 +6,7 @@ import { Media } from "../models/media.model";
 import { UpdateMediaDto } from "../dto/update-media.dto";
 import { Logger } from "@nestjs/common";
 import { ErrorMessages } from "../medias.constants";
+import { UpdateWriteOpResult, WriteOpResult } from "mongodb";
 
 
 export class MediaRepository {
@@ -18,26 +19,21 @@ export class MediaRepository {
   }
 
   async updateMedia(updateMediaDto: UpdateMediaDto): Promise<Media> {
-    try {
-      await this.mediaModel.updateOne({ _id: updateMediaDto._id }, updateMediaDto).exec();
-      // TODO Check if update was successful
-      return new Media(updateMediaDto._id);
+    const updatedMedia: IMedia = await this.mediaModel
+      .findOneAndUpdate({ _id: updateMediaDto._id }, { $set: updateMediaDto })
+      .exec();
+    if (!updatedMedia) {
+      throw new Error(ErrorMessages.MEDIA_NOT_FOUND);
     }
-    catch (err) {
-      throw new Error(ErrorMessages.FETCHING_DB);
-    }
+    return new Media(updatedMedia._id);
   }
 
   async findById(id: String): Promise<IMedia> {
-    try {
-      return await this.mediaModel.findById(id).exec();
+    const media = await this.mediaModel.findById(id).exec();
+    if (!media) {
+      throw new Error(ErrorMessages.MEDIA_NOT_FOUND);
     }
-    catch (err) {
-      if (err.message instanceof MongooseError.CastError) {
-        throw new Error(ErrorMessages.MEDIA_NOT_FOUND);
-      }
-      throw new Error(ErrorMessages.FETCHING_DB);
-    }
+    return media;
   }
 
   async findAll(): Promise<IMedia[]> {

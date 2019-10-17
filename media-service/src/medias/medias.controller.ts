@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Logger, CacheKey, UseInterceptors, CacheInterceptor } from '@nestjs/common';
+import { Controller, Body, Logger, CacheKey, UseInterceptors, CacheInterceptor } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateMediaCommand } from './commands/impl/create-media.command';
@@ -7,6 +7,7 @@ import { GetMediasQuery } from './queries/impl';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { UpdateMediaDto } from './dto/update-media.dto';
 import { UpdateMediaCommand } from './commands/impl/update-media.command';
+import { GetMediaByIdQuery } from './queries/impl/get-media-by-id.query';
 
 @Controller('medias')
 export class MediasController {
@@ -46,6 +47,20 @@ export class MediasController {
   @MessagePattern('get_medias')
   async findAll(): Promise<Media[]> {
     return this.queryBus.execute(new GetMediasQuery());
+  }
+
+  @CacheKey('get_media_by_id')
+  @UseInterceptors(CacheInterceptor)
+  @MessagePattern('get_media_by_id')
+  async findById(@Body() _id: string) {
+    try {
+      return await this.queryBus.execute(new GetMediaByIdQuery(_id));
+    } catch (e) {
+      return {
+        success: false,
+        error: e.message,
+      }
+    }
   }
 
   @EventPattern('media_created')

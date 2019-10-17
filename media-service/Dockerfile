@@ -8,3 +8,5 @@ RUN cd /tmp && npm install --no-optional && npm cache clean --force
 FROM base AS development
 COPY . .
 COPY --from=dependencies /tmp/node_modules ./node_modules
+
+CMD [ "npm", "start" ]

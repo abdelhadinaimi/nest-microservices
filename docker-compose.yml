@@ -1,42 +1,42 @@
-version: '2'
+version: "2"
 
 services:
   rabbitmq:
-    image: 'bitnami/rabbitmq:3.8'
+    image: "bitnami/rabbitmq:3.8"
     ports:
-      - '4369:4369'
-      - '5672:5672'
-      - '25672:25672'
-      - '15672:15672'
+      - "4369:4369"
+      - "5672:5672"
+      - "25672:25672"
+      - "15672:15672"
     volumes:
-      - 'rabbitmq_data:/bitnami'
+      - "rabbitmq_data:/bitnami"
   api:
-    build: './api'
+    build: "./api"
+    image: "abdelhadinaimi/moon_api"
     restart: always
     ports:
-      - '3000:3000'
+      - "3000:3000"
     depends_on:
       - rabbitmq
-    command: ${CONTAINER_COMMAND_NODE}
     environment:
       AMQ_HOST: rabbitmq
   user-management-service:
-    build: './user-management-service'
+    build: "./user-management-service"
+    image: "abdelhadinaimi/moon_user-service"
     restart: always
     depends_on:
       - rabbitmq
-    command: ${CONTAINER_COMMAND_NODE}
     environment:
       AMQ_HOST: rabbitmq
       AMQ_USER: user_service
       AMQ_PASSWORD: user_service
   media-service:
-    build: './media-service'
+    build: "./media-service"
+    image: "abdelhadinaimi/moon_media-service"
     restart: always
     depends_on:
       - rabbitmq
       - ms-mongodb
-    command: ${CONTAINER_COMMAND_NODE}
     environment:
       AMQ_HOST: rabbitmq
       AMQ_USER: media_service
@@ -44,10 +44,10 @@ services:
   ms-mongodb:
     image: mongo
     volumes:
-     - 'ms-mongodb_data:/data/db'
-     - './mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro'
+      - "ms-mongodb_data:/data/db"
+      - "./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
     ports:
-     - "27017:27017"
+      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example

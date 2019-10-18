@@ -13,11 +13,11 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand>{
 
   async execute(command: CreateUserCommand) {
     Logger.log('Async CreateUserHandler...', 'CreateUserCommand');
-    const { userDto } = command;
+    const { createUserDto } = command;
     const user = this.publisher.mergeObjectContext(
-      await this.repository.createUser(userDto),
+      await this.repository.createUser(createUserDto),
     );
-    user.createUser();
+    user.createUser(createUserDto);
     user.commit();
     return { success: true };
   }

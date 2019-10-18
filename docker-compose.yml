@@ -26,6 +26,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
+      - us-mongodb
     environment:
       AMQ_HOST: rabbitmq
       AMQ_USER: user_service
@@ -45,9 +46,22 @@ services:
     image: mongo
     volumes:
       - "ms-mongodb_data:/data/db"
-      - "./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      - "./ms-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: usersDB
+      MONGO_NON_ROOT_USERNAME: users_user
+      MONGO_NON_ROOT_PASSWORD: users_pass
+  us-mongodb:
+    image: mongo
+    volumes:
+      - "us-mongodb_data:/data/db"
+      - "./us-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+    ports:
+      - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -58,4 +72,6 @@ volumes:
   rabbitmq_data:
     driver: local
   ms-mongodb_data:
+    driver: local
+  us-mongodb_data:
     driver: local

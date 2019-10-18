@@ -1,8 +1,8 @@
 import { IEvent } from "@nestjs/cqrs";
-import { UserDto } from "src/users/interfaces/user.dto";
+import { CreateUserDto } from "src/users/dto/create-user.dto";
 
 
 export class UserCreatedEvent implements IEvent {
   constructor(
-    public readonly userDto: UserDto) {}
+    public readonly createUserDto: CreateUserDto) {}
 }

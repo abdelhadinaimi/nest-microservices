@@ -2,9 +2,9 @@ import { Controller, Body, Get, Logger } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateUserCommand } from './commands/impl/create-user.command';
-import { UserDto } from './interfaces/user.dto';
 import { User } from './models/user.model';
 import { GetUsersQuery } from './queries/impl';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -20,9 +20,9 @@ export class UsersController {
   }
 
   @MessagePattern('register_user')
-  async create(@Body() userDto: UserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
     Logger.log('In create', 'UsersController');
-    return this.commandBus.execute(new CreateUserCommand(userDto));
+    return this.commandBus.execute(new CreateUserCommand(createUserDto));
   }
   @MessagePattern('get_users')
   async findAll(): Promise<User[]> {
@@ -30,8 +30,8 @@ export class UsersController {
   }
 
   @EventPattern('user_created')
-  async catchEvent(@Body() userDto: UserDto) {
-    Logger.log('user_created catched !' + userDto, 'UsersController');
+  async catchEvent(@Body() createUserDto: CreateUserDto) {
+    Logger.log('user_created catched !' + createUserDto, 'UsersController');
   }
 }
 

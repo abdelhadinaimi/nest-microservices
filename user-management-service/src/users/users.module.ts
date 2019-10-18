@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CommandHandlers } from './commands/handlers';
 import { EventHandlers } from './events/handlers';
@@ -8,16 +8,15 @@ import { UserRepository } from './repository/user.repository';
 import { UsersSagas } from './sagas/users.sagas';
 import { ClientProxyFactory } from '@nestjs/microservices';
 import { AMQ_PROXY } from '../app.constants';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '../config/config.service';
-
-const AMQ_HOST = process.env.AMQ_HOST || 'localhost';
-const AMQ_PORT = process.env.AMQ_PORT || 5672;
-const AMQ_USER = process.env.AMQ_USER || 'user';
-const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'bitnami';
+import { UsersService } from './users.service';
 
 @Module({
   imports: [
     CqrsModule,
+    MongooseModule.forFeature([{ name: 'User', schema: null }]),
+    CacheModule.register(),
   ],
   controllers: [UsersController],
   providers: [
@@ -28,6 +27,7 @@ const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'bitnami';
       },
       inject: [ConfigService],
     },
+    UsersService,
     UserRepository,
     ...CommandHandlers,
     ...EventHandlers,

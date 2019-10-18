@@ -18,7 +18,7 @@ export class UsersSagas {
         delay(1000),
         map(event => {
           Logger.log('Inside [UsersSagas] Saga', 'UsersSagas');
-          this.client.emit('user_created',event.userDto); // publishes an event to rabbitMQ
+          this.client.emit('user_created',event.createUserDto); // publishes an event to rabbitMQ
           return null;
         }),
       )

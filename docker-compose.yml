@@ -48,9 +48,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: usersDB
-      MONGO_NON_ROOT_USERNAME: users_user
-      MONGO_NON_ROOT_PASSWORD: users_pass
+      MONGO_INITDB_DATABASE: mediasDB
   us-mongodb:
     image: mongo
     volumes:
@@ -61,9 +59,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: mediasDB
-      MONGO_NON_ROOT_USERNAME: medias_user
-      MONGO_NON_ROOT_PASSWORD: medias_pass
+      MONGO_INITDB_DATABASE: usersDB
 volumes:
   rabbitmq_data:
     driver: local

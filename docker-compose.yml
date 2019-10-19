@@ -27,10 +27,8 @@ services:
     depends_on:
       - rabbitmq
       - us-mongodb
-    environment:
-      AMQ_HOST: rabbitmq
-      AMQ_USER: user_service
-      AMQ_PASSWORD: user_service
+    env_file:
+      - us.env
   media-service:
     build: "./media-service"
     image: "abdelhadinaimi/moon_media-service"
@@ -38,10 +36,8 @@ services:
     depends_on:
       - rabbitmq
       - ms-mongodb
-    environment:
-      AMQ_HOST: rabbitmq
-      AMQ_USER: media_service
-      AMQ_PASSWORD: media_service
+    env_file:
+      - ms.env
   ms-mongodb:
     image: mongo
     volumes:

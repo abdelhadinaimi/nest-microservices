@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 const MONGO_HOST = process.env.MONGO_HOST || 'localhost';
 const MONGO_PORT = process.env.MONGO_PORT || '27018';
 const MONGO_USER = process.env.MONGO_USER || 'users_user';
-const MONGO_PASS = process.env.MONGO_USER || 'users_pass';
+const MONGO_PASS = process.env.MONGO_PASS || 'users_pass';
 
 @Module({
   imports: [

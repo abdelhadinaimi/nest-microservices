@@ -66,6 +66,7 @@
     "@types/mongoose": "^5.5.21",
     "amqp-connection-manager": "^3.0.0",
     "amqplib": "^0.5.5",
+    "cache-manager": "^2.10.0",
     "mongoose": "^5.7.5",
     "redis": "^2.8.0"
   }

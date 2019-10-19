@@ -11,11 +11,12 @@ import { AMQ_PROXY } from '../app.constants';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '../config/config.service';
 import { UsersService } from './users.service';
+import { UserSchema } from './schemas/user.schema';
 
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forFeature([{ name: 'User', schema: null }]),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     CacheModule.register(),
   ],
   controllers: [UsersController],

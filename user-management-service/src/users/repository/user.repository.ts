@@ -22,7 +22,9 @@ export class UserRepository {
     } catch (error) {
       if (error instanceof MongoError) {
         if (error.code === 11000) { // duplicate key error
-          throw new Error(ErrorMessages.EMAIL_EXISTS);
+          const possibleErrorsKeys = Object.keys(error["keyPattern"]);
+          throw new Error(possibleErrorsKeys[0] === "email" ?
+            ErrorMessages.EMAIL_EXISTS : ErrorMessages.USERNAME_EXISTS);
         }
       }
     }
@@ -41,7 +43,9 @@ export class UserRepository {
       let errorMsg = error.message;
       if (error instanceof MongoError) {
         if (error.code === 11000) { // duplicate key error
-          errorMsg = ErrorMessages.EMAIL_EXISTS;
+          const possibleErrorsKeys = Object.keys(error["keyPattern"]);
+          errorMsg = possibleErrorsKeys[0] === "email" ?
+            ErrorMessages.EMAIL_EXISTS : ErrorMessages.USERNAME_EXISTS;
         }
       }
       throw new Error(errorMsg);

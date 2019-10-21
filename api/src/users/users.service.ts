@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AMQ_PROXY } from '../app.constants';
 import { ClientProxy } from '@nestjs/microservices';
@@ -14,6 +14,7 @@ export class UsersService {
   }
 
   update(_id: string, updateUserDto: UpdateUserDto) {
+    Logger.log(updateUserDto);
     return this.client.send("update_user", { _id, ...updateUserDto });
   }
 

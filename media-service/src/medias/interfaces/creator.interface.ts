@@ -4,7 +4,6 @@ import { ICreator } from "./creator.interface";
 export interface ICreator {
   _id: string;
   username: string;
-  avatarURL: string;
 }
 
 export class Creator implements ICreator {
@@ -12,11 +11,7 @@ export class Creator implements ICreator {
   @IsMongoId()
   _id!: string;
 
-  @IsDefined()
   @IsString()
   username!: string;
 
-  @IsDefined()
-  @IsUrl()
-  avatarURL!: string;
 }

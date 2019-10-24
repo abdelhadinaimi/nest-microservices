@@ -4,6 +4,7 @@ import { CreateMediaDto } from './dto/create-media.dto';
 import { UpdateMediaDto } from './dto/update-media.dto';
 import { MediasService } from './medias.service';
 import { UpdateMediaCreatorDto } from './dto/update-media-creator.dto';
+import { UpdateCreatorDto } from './dto/update-creator.dto';
 
 @Controller('medias')
 export class MediasController {
@@ -49,7 +50,7 @@ export class MediasController {
   }
 
   @EventPattern('user_updated_creator_info')
-  catchCreatorUpdateEvent(@Body() updateMediaCreatorDto: UpdateMediaCreatorDto) {
-    this.mediasService.updateCreator(updateMediaCreatorDto);
+  catchCreatorUpdateEvent(@Body() updateCreatorDto: UpdateCreatorDto) {
+    this.mediasService.updateCreator(updateCreatorDto);
   }
 }

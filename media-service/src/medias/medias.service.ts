@@ -9,6 +9,9 @@ import { Media } from "./models/media.model";
 import { GetMediaByIdQuery } from "./queries/impl/get-media-by-id.query";
 import { UpdateMediaCreatorDto } from "./dto/update-media-creator.dto";
 import { UpdateMediaCreatorCommand } from "./commands/impl/update-media-creator.command";
+import { UpdateCreatorDto } from "./dto/update-creator.dto";
+import { GetMediasByCreatorIdQuery } from "./queries/impl/get-medias-by-creator-id.query";
+import { IMedia } from "./interfaces/media.interface";
 
 type IError = {
   success: boolean,
@@ -38,10 +41,15 @@ export class MediasService {
     );
   }
 
-  updateCreator(updateMediaCreatorDto: UpdateMediaCreatorDto) {
+  updateMediaCreator(updateMediaCreatorDto: UpdateMediaCreatorDto) {
     this.commandBus.execute(new UpdateMediaCreatorCommand(updateMediaCreatorDto));
   }
-
+  async updateCreator(updateCreatorDto: UpdateCreatorDto) {
+    const medias: IMedia[] = await this.queryBus.execute(new GetMediasByCreatorIdQuery(updateCreatorDto.creator._id));
+    medias.forEach(media => {
+      this.commandBus.execute(new UpdateMediaCreatorCommand({ _id: media._id, creator: updateCreatorDto.creator }));
+    });
+  }
   create(createMediaDto: CreateMediaDto) {
     return this.tryExecute(() =>
       this.commandBus.execute(new CreateMediaCommand(createMediaDto))

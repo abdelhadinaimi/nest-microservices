@@ -10,10 +10,6 @@ class Creator implements ICreator {
   @IsOptional()
   @IsString()
   username!: string;
-
-  @IsOptional()
-  @IsUrl()
-  avatarURL!: string;
 }
 
 export class UpdateMediaCreatorDto {

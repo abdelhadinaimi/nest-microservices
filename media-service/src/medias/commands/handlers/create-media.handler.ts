@@ -19,6 +19,6 @@ export class CreateMediaHandler implements ICommandHandler<CreateMediaCommand>{
     );
     media.createMedia(createMediaDto);
     media.commit();
-    return { success: true };
+    return { success: true, _id: media.id };
   }
 }

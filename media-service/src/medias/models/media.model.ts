@@ -6,7 +6,7 @@ import { CreateMediaDto } from "../dto/create-media.dto";
 
 
 export class Media extends AggregateRoot {
-  constructor(private readonly id: string) {
+  constructor(public readonly id: string) {
     super();
   }
 

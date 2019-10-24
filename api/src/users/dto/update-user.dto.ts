@@ -1,8 +1,8 @@
-import { IsString, IsEmail, IsOptional } from 'class-validator';
+import { IsString, IsEmail, IsOptional, MinLength, MaxLength } from 'class-validator';
 
 
 export class UpdateUserDto {
-  
+
   @IsOptional()
   @IsEmail()
   email: string;
@@ -12,6 +12,9 @@ export class UpdateUserDto {
   username: string;
 
   @IsOptional()
+  @MaxLength(20, {
+    message: "firstname is too long"
+  })
   @IsString()
   firstname: string;
 
@@ -22,7 +25,10 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   avatarURL: string;
-  
+
+  @MaxLength(512, {
+    message: "bio is too long"
+  })
   @IsOptional()
   @IsString()
   profilBio: string;

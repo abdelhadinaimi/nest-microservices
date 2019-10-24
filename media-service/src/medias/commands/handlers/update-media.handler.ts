@@ -20,6 +20,6 @@ export class UpdateMediaHandler implements ICommandHandler<UpdateMediaCommand>{
     );
     media.updateMedia(updateMediaDto);
     media.commit();
-    return { success: true };
+    return { success: true, _id:media.id };
   }
 }

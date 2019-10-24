@@ -4,7 +4,6 @@ import { MediasService } from "./medias.service";
 import { UpdateMediaDto } from "./dto/update-media.dto";
 import { IsMongoId } from "class-validator";
 
-
 class FindMongoId {
   @IsMongoId()
   id: string;

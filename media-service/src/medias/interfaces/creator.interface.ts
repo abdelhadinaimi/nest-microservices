@@ -2,9 +2,9 @@ import { IsMongoId, IsString, IsUrl, IsDefined } from "class-validator";
 import { ICreator } from "./creator.interface";
 
 export interface ICreator {
-  readonly _id: string;
-  readonly username: string;
-  readonly avatarURL: string;
+  _id: string;
+  username: string;
+  avatarURL: string;
 }
 
 export class Creator implements ICreator {

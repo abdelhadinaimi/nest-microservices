@@ -7,6 +7,7 @@ import { UpdateMediaDto } from "../dto/update-media.dto";
 import { Logger } from "@nestjs/common";
 import { ErrorMessages } from "../medias.constants";
 import { UpdateWriteOpResult, WriteOpResult } from "mongodb";
+import { UpdateMediaCreatorDto } from "../dto/update-media-creator.dto";
 
 
 export class MediaRepository {
@@ -26,6 +27,18 @@ export class MediaRepository {
       throw new Error(ErrorMessages.MEDIA_NOT_FOUND);
     }
     return new Media(updatedMedia._id);
+  }
+
+  async updateMediaCreator(updateMediaCreator: UpdateMediaCreatorDto): Promise<Media> {
+    const mediaToUpdate: IMedia = await this.mediaModel.findById(updateMediaCreator._id).exec();
+    if (!mediaToUpdate) {
+      throw new Error(ErrorMessages.MEDIA_NOT_FOUND);
+    }
+    Object.keys(updateMediaCreator.creator).forEach(k => {
+      mediaToUpdate.creator[k] = updateMediaCreator.creator[k] || mediaToUpdate.creator[k];
+    });
+    await mediaToUpdate.save();
+    return new Media(mediaToUpdate._id);
   }
 
   async findById(id: String): Promise<IMedia> {

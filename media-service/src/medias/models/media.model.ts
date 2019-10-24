@@ -3,6 +3,7 @@ import { MediaCreatedEvent } from "../events/impl/media-created.event";
 import { MediaUpdatedEvent } from "../events/impl/media-updated.event";
 import { UpdateMediaDto } from "../dto/update-media.dto";
 import { CreateMediaDto } from "../dto/create-media.dto";
+import { UpdateMediaCreatorDto } from "../dto/update-media-creator.dto";
 
 
 export class Media extends AggregateRoot {
@@ -16,5 +17,9 @@ export class Media extends AggregateRoot {
 
   updateMedia(updateMediaDto: UpdateMediaDto) {
     this.apply(new MediaUpdatedEvent(this.id, updateMediaDto));
+  }
+
+  updateMediaCreator(updateMediaCreatorDto: UpdateMediaCreatorDto) {
+    this.apply(new MediaUpdatedEvent(this.id, updateMediaCreatorDto));
   }
 }

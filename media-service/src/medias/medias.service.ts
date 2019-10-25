@@ -44,12 +44,14 @@ export class MediasService {
   updateMediaCreator(updateMediaCreatorDto: UpdateMediaCreatorDto) {
     this.commandBus.execute(new UpdateMediaCreatorCommand(updateMediaCreatorDto));
   }
+  
   async updateCreator(updateCreatorDto: UpdateCreatorDto) {
     const medias: IMedia[] = await this.queryBus.execute(new GetMediasByCreatorIdQuery(updateCreatorDto.creator._id));
     medias.forEach(media => {
       this.commandBus.execute(new UpdateMediaCreatorCommand({ _id: media._id, creator: updateCreatorDto.creator }));
     });
   }
+  
   create(createMediaDto: CreateMediaDto) {
     return this.tryExecute(() =>
       this.commandBus.execute(new CreateMediaCommand(createMediaDto))
@@ -61,6 +63,7 @@ export class MediasService {
       this.queryBus.execute(new GetMediasQuery())
     );
   }
+  
   findById(_id: string) {
     return this.tryExecute(() =>
       this.queryBus.execute(new GetMediaByIdQuery(_id))

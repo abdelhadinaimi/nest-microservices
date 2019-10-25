@@ -1,14 +1,11 @@
 import { IMedia } from "../interfaces/media.interface";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, Error as MongooseError } from "mongoose";
+import { Model } from "mongoose";
 import { CreateMediaDto } from "../dto/create-media.dto";
 import { Media } from "../models/media.model";
 import { UpdateMediaDto } from "../dto/update-media.dto";
-import { Logger } from "@nestjs/common";
 import { ErrorMessages } from "../medias.constants";
-import { UpdateWriteOpResult, WriteOpResult } from "mongodb";
 import { UpdateMediaCreatorDto } from "../dto/update-media-creator.dto";
-import { UpdateCreatorDto } from "../dto/update-creator.dto";
 
 
 export class MediaRepository {

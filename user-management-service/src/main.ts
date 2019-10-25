@@ -1,8 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Transport } from '@nestjs/microservices';
-import { Inject } from '@nestjs/common';
-import { ConfigService } from './config/config.service';
 
 const AMQ_HOST = process.env.AMQ_HOST || 'localhost';
 const AMQ_PORT = process.env.AMQ_PORT || 5672;

@@ -34,6 +34,9 @@ export class UsersSagas {
         map(event => {
           Logger.log('user_updated', 'UsersSagas');
           this.client.emit('user_created', event.updateUserDto); // publishes an event to rabbitMQ
+          if (event.updateUserDto.username) {
+            this.client.emit('user_updated_creator_info', { creator: event.updateUserDto });
+          }
           return null;
         }),
       )

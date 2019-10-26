@@ -4,7 +4,6 @@ import { ICreator } from "./creator.interface";
 export interface ICreator {
   readonly _id: string;
   readonly username: string;
-  readonly avatarURL: string;
 }
 
 export class Creator implements ICreator {
@@ -15,8 +14,4 @@ export class Creator implements ICreator {
   @IsDefined()
   @IsString()
   username!: string;
-
-  @IsDefined()
-  @IsUrl()
-  avatarURL!: string;
 }

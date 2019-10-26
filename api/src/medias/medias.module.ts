@@ -1,6 +1,6 @@
 import { Module, CacheModule } from '@nestjs/common';
 import { ClientProxyFactory } from '@nestjs/microservices';
-import { AMQ_PROXY } from '../app.constants';
+import { REDIS } from '../app.constants';
 import { MediasController } from './medias.controller';
 import { MediasService } from './medias.service';
 import { ConfigService } from '../config/config.service';
@@ -11,9 +11,9 @@ import { ConfigService } from '../config/config.service';
   providers: [
     MediasService,
     {
-      provide: AMQ_PROXY,
+      provide: REDIS.PROXY_NAME,
       useFactory: (configService: ConfigService) => {
-        return ClientProxyFactory.create(configService.getRabitMQOptions('medias_queue'));
+        return ClientProxyFactory.create(configService.getRedisOptions());
       },
       inject: [ConfigService],
     },

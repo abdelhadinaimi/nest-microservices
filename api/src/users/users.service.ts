@@ -1,13 +1,13 @@
 import { Injectable, Inject, Logger } from '@nestjs/common';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { AMQ_PROXY } from '../app.constants';
+import { REDIS } from '../app.constants';
 import { ClientProxy } from '@nestjs/microservices';
 import { User } from './interfaces/user.interface';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@Inject(AMQ_PROXY) private readonly client: ClientProxy) { }
+  constructor(@Inject(REDIS.PROXY_NAME) private readonly client: ClientProxy) { }
 
   register(registerUserDto: RegisterUserDto) {
     return this.client.send("register_user", registerUserDto);

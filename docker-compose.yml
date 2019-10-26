@@ -1,15 +1,16 @@
 version: "2"
 
 services:
-  rabbitmq:
-    image: "bitnami/rabbitmq:3.8"
+  redis:
+    image: 'bitnami/redis:5.0'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
-      - "4369:4369"
-      - "5672:5672"
-      - "25672:25672"
-      - "15672:15672"
+      - '6379:6379'
     volumes:
-      - "rabbitmq_data:/bitnami"
+      - 'redis_data:/bitnami/redis/data'
   api:
     build: "./api"
     image: "abdelhadinaimi/moon_api"
@@ -17,15 +18,13 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - rabbitmq
-    environment:
-      AMQ_HOST: rabbitmq
+      - redis
   user-management-service:
     build: "./user-management-service"
     image: "abdelhadinaimi/moon_user-service"
     restart: always
     depends_on:
-      - rabbitmq
+      - redis
       - us-mongodb
     env_file:
       - us.env
@@ -34,7 +33,7 @@ services:
     image: "abdelhadinaimi/moon_media-service"
     restart: always
     depends_on:
-      - rabbitmq
+      - redis
       - ms-mongodb
     env_file:
       - ms.env
@@ -61,7 +60,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: usersDB
 volumes:
-  rabbitmq_data:
+  redis_data:
     driver: local
   ms-mongodb_data:
     driver: local

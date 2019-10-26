@@ -7,7 +7,7 @@ import { QueryHandlers } from './queries/handlers';
 import { UserRepository } from './repository/user.repository';
 import { UsersSagas } from './sagas/users.sagas';
 import { ClientProxyFactory } from '@nestjs/microservices';
-import { AMQ_PROXY } from '../app.constants';
+import { REDIS } from '../app.constants';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '../config/config.service';
 import { UsersService } from './users.service';
@@ -22,9 +22,9 @@ import { UserSchema } from './schemas/user.schema';
   controllers: [UsersController],
   providers: [
     {
-      provide: AMQ_PROXY,
+      provide: REDIS.PROXY_NAME,
       useFactory: (configService: ConfigService) => {
-        return ClientProxyFactory.create(configService.getRabitMQOptions());
+        return ClientProxyFactory.create(configService.getRedisOptions());
       },
       inject: [ConfigService],
     },

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { ClientProxyFactory } from '@nestjs/microservices';
-import { AMQ_PROXY } from '../app.constants';
+import { REDIS } from '../app.constants';
 import { ConfigService } from '../config/config.service';
 
 
@@ -11,9 +11,9 @@ import { ConfigService } from '../config/config.service';
   providers: [
     UsersService,
     {
-      provide: AMQ_PROXY,
+      provide: REDIS.PROXY_NAME,
       useFactory: (configService: ConfigService) => {
-        return ClientProxyFactory.create(configService.getRabitMQOptions('users_queue'));
+        return ClientProxyFactory.create(configService.getRedisOptions());
       },
       inject: [ConfigService],
     },

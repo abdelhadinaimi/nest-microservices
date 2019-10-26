@@ -2,13 +2,8 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import { ClientProviderOptions } from '@nestjs/microservices/module/interfaces/clients-module.interface';
 import { Transport } from '@nestjs/common/enums/transport.enum';
-import { AMQ_PROXY } from '../app.constants';
+import { REDIS, AMQ } from '../app.constants';
 import { Injectable, Logger } from '@nestjs/common';
-
-const AMQ_HOST = process.env.AMQ_HOST || 'localhost';
-const AMQ_PORT = process.env.AMQ_PORT || 5672;
-const AMQ_USER = process.env.AMQ_USER || 'user';
-const AMQ_PASSWORD = process.env.AMQ_PASSWORD || 'bitnami';
 
 @Injectable()
 export class ConfigService {
@@ -31,12 +26,24 @@ export class ConfigService {
 
   getRabitMQOptions(queueName: string): ClientProviderOptions {
     return {
-      name: AMQ_PROXY,
+      name: AMQ.PROXY_NAME,
       transport: Transport.RMQ,
       options: {
-        urls: [`amqp://${AMQ_USER}:${AMQ_PASSWORD}@${AMQ_HOST}:${AMQ_PORT}`],
+        urls: [`amqp://${AMQ.USER}:${AMQ.PASS}@${AMQ.HOST}:${AMQ.PORT}`],
         queue: queueName,
         queueOptions: { durable: false },
+      },
+    }
+  }
+
+  public getRedisOptions(): ClientProviderOptions {
+    return {
+      name: REDIS.PROXY_NAME,
+      transport: Transport.REDIS,
+      options: {
+        retryAttempts: 5,
+        retryDelay: 1000,
+        url: `redis://${REDIS.HOST}:${REDIS.PORT}`
       },
     }
   }

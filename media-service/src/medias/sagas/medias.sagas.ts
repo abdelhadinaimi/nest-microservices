@@ -3,13 +3,13 @@ import { Saga, ICommand, ofType } from "@nestjs/cqrs";
 import { Observable } from "rxjs";
 import { delay, map } from 'rxjs/operators';
 import { MediaCreatedEvent } from "../events/impl/media-created.event";
-import { AMQ_PROXY } from "../../app.constants";
 import { ClientProxy } from "@nestjs/microservices";
 import { MediaUpdatedEvent } from "../events/impl/media-updated.event";
+import { REDIS } from "../../app.constants";
 
 @Injectable()
 export class MediasSagas {
-  constructor(@Inject(AMQ_PROXY) private readonly client: ClientProxy) { }
+  constructor(@Inject(REDIS.PROXY_NAME) private readonly client: ClientProxy) { }
 
   @Saga()
   mediaCreated = (event$: Observable<any>): Observable<ICommand> => {

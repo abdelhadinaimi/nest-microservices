@@ -7,11 +7,11 @@ import { QueryHandlers } from './queries/handlers';
 import { MediaRepository } from './repository/media.repository';
 import { MediasSagas } from './sagas/medias.sagas';
 import { ClientProxyFactory } from '@nestjs/microservices';
-import { AMQ_PROXY } from '../app.constants';
 import { ConfigService } from '../config/config.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MediaSchema } from './schemas/media.schema';
 import { MediasService } from './medias.service';
+import { REDIS } from '../app.constants';
 
 @Module({
   imports: [
@@ -22,9 +22,9 @@ import { MediasService } from './medias.service';
   controllers: [MediasController],
   providers: [
     {
-      provide: AMQ_PROXY,
+      provide: REDIS.PROXY_NAME,
       useFactory: (configService: ConfigService) => {
-        return ClientProxyFactory.create(configService.getRabitMQOptions());
+        return ClientProxyFactory.create(configService.getRedisOptions());
       },
       inject: [ConfigService],
     },

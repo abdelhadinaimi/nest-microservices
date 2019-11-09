@@ -2,7 +2,9 @@ import { config } from "dotenv";
 import { Logger } from "@nestjs/common";
 
 try {
-  config();
+  if(process.env.NODE_ENV !== 'production'){
+    config();
+  }
 } catch (e) {
   Logger.error(`.env file doens't exist please add it.`);
 }

@@ -4,14 +4,19 @@
   "description": "",
   "author": "",
   "license": "MIT",
+  "main": "dist/main.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "gcp-build": "npm run build",
+    "build": "rm -rf dist && ./node_modules/@nestjs/cli/bin/nest.js build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "./node_modules/@nestjs/cli/bin/nest.js start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start": "npm run start:prod",
+    "start:dev": "./node_modules/@nestjs/cli/bin/nest.js start --watch",
+    "start:debug": "./node_modules/@nestjs/cli/bin/nest.js start --debug --watch",
+    "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -27,9 +32,7 @@
     "cache-manager": "^2.10.0",
     "dotenv": "^8.2.0",
     "mongoose": "^5.7.4",
-    "redis": "^2.8.0"
-  },
-  "devDependencies": {
+    "redis": "^2.8.0",
     "@nestjs/cli": "^6.9.0",
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
@@ -56,7 +59,7 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
-  },
+  },   
   "jest": {
     "moduleFileExtensions": [
       "js",

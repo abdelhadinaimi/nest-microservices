@@ -1,23 +1,23 @@
-import { Controller, Post, Body, Logger, Get, Put, Param } from "@nestjs/common";
-import { UsersService } from "./users.service";
-import { RegisterUserDto } from "./dto/register-user.dto";
-import { IsMongoId } from "class-validator";
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { Controller, Post, Body, Logger, Get, Put, Param } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { IsMongoId } from 'class-validator';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 class FindMongoId {
   @IsMongoId()
   id: string;
 }
 
-@Controller("users")
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @Post()
+  @Post('/')
   async register(@Body() registerUserDto: RegisterUserDto) {
     return this.usersService.register(registerUserDto);
   }
-  
+
   @Put('/:id')
   update(@Param() params: FindMongoId, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(params.id, updateUserDto);

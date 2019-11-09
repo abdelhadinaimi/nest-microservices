@@ -20,7 +20,7 @@ export class AppModule {
     consumer
       .apply(AuthenticationMiddleware)
       .forRoutes(
-        { path: '/', method: RequestMethod.GET },
+        { path: '/admin', method: RequestMethod.ALL },
       )
   }
 }

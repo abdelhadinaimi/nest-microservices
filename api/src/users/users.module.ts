@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, RequestMethod, Logger } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { ClientProxyFactory } from '@nestjs/microservices';
 import { REDIS } from '../app.constants';
 import { ConfigService } from '../config/config.service';
+import { AuthenticationMiddleware } from '../common/authentication.middleware';
+import { ROUTES } from './users.constants';
 
 
 @Module({
@@ -19,4 +21,12 @@ import { ConfigService } from '../config/config.service';
     },
   ],
 })
-export class UsersModule { }
+export class UsersModule { 
+  public configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthenticationMiddleware)
+      .forRoutes(
+        ...ROUTES.filter(r => r.protected)
+      )
+  }
+ }

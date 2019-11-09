@@ -1,3 +1,12 @@
+import { config } from "dotenv";
+import { Logger } from "@nestjs/common";
+
+try {
+  config();
+} catch (e) {
+  Logger.error(`.env file doens't exist please add it.`);
+}
+
 export const AMQ = {
   PROXY_NAME: 'AMQ_PROXY',
   HOST: process.env.AMQ_HOST || 'localhost',

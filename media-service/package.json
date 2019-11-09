@@ -8,7 +8,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "./node_modules/@nestjs/cli/bin/nest.js start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -25,6 +25,7 @@
     "amqp-connection-manager": "^3.0.0",
     "amqplib": "^0.5.5",
     "cache-manager": "^2.10.0",
+    "dotenv": "^8.2.0",
     "mongoose": "^5.7.4",
     "redis": "^2.8.0"
   },

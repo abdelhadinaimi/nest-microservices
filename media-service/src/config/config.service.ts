@@ -2,7 +2,6 @@ import { REDIS, AMQ } from "../app.constants";
 import { Transport } from "@nestjs/common/enums/transport.enum";
 import { ClientProviderOptions } from "@nestjs/microservices/module/interfaces/clients-module.interface";
 
-
 export class ConfigService {
 
   public getRabitMQOptions(): ClientProviderOptions {

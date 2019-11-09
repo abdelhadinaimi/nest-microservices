@@ -1,4 +1,4 @@
-import {NestMiddleware, Injectable} from '@nestjs/common';
+import { NestMiddleware, Injectable } from '@nestjs/common';
 import * as jwt from 'express-jwt';
 import { expressJwtSecret } from 'jwks-rsa';
 import { ConfigService } from '../config/config.service';
@@ -6,7 +6,7 @@ import { ConfigService } from '../config/config.service';
 @Injectable()
 export class AuthenticationMiddleware implements NestMiddleware {
 
-  constructor (private readonly config: ConfigService) { }
+  constructor(private readonly config: ConfigService) { }
 
   use(req, res, next) {
     jwt({
@@ -14,11 +14,11 @@ export class AuthenticationMiddleware implements NestMiddleware {
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: `https://${this.config.get('AUTH0_DOMAIN')}/.well-known/jwks.json`,
+        jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
       }),
 
       audience: 'http://localhost:3000',
-      issuer: `https://${this.config.get('AUTH0_DOMAIN')}/`,
+      issuer: `https://${process.env.AUTH0_DOMAIN}/`,
       algorithm: 'RS256',
     })(req, res, err => {
       if (err) {

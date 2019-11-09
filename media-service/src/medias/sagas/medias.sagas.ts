@@ -32,7 +32,7 @@ export class MediasSagas {
         ofType(MediaUpdatedEvent),
         delay(200),
         map(event => {
-          Logger.log(event.updateMediaDto, 'MediasSagas');
+          Logger.log("media updated", 'MediasSagas');
           this.client.emit('media_updated', event.updateMediaDto); // publishes an event to rabbitMQ
           return null;
         }),

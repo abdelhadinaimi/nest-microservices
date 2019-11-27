@@ -15,4 +15,4 @@ Authentification and authorization is done thru a JWT Token using Auth0.
 * https://microservices.io
 * [Martin Flowler's blog post on CQRS](https://martinfowler.com/bliki/CQRS.html)
 * https://github.com/kamilmysliwiec/nest-cqrs-example/
-* [herbertograca's blog](https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/)
+* [herbertograca's blog on DDD, hexagonal architecture and CQRS](https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/)

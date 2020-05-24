@@ -1,12 +1,14 @@
-FROM node:dubnium-alpine AS base
-WORKDIR /opt/app
-COPY package.json package-lock.json /tmp/
+FROM node:12
+# RUN mkdir /app/apiservice
+WORKDIR /app/apiservice
 
-FROM base AS dependencies
-RUN cd /tmp && npm install --no-optional && npm cache clean --force
+COPY package.json package-lock.json /app/apiservice/
 
-FROM base AS development
-COPY . .
-COPY --from=dependencies /tmp/node_modules ./node_modules
+# RUN npm cache clean --force && npm install -g npm@latest && npm install --no-optional
+RUN npm install --no-optional
+
+COPY . /app/apiservice
+
+RUN npm run build
 
 CMD [ "npm", "start" ]

@@ -40,18 +40,6 @@ services:
 
  
 
-
-  photo-management-service:
-    build: './photo-management-service'
-    restart: always
-    depends_on:
-      - redis
-      - ps-mongodb
-    env_file:
-      - ps.env
-
-
-
   user-management-service:
     build: './user-management-service'
     restart: always
@@ -76,21 +64,6 @@ services:
 
 
 
-
-  ps-mongodb:
-    image: mongo
-    volumes:
-      - 'ps-mongodb_data:/data/db'
-      - './ps-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro'
-    ports:
-      - '27018:27017'
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: photosDB
-
-
-
   us-mongodb:
     image: mongo
     volumes:
@@ -112,8 +85,6 @@ volumes:
   ms-mongodb_data:
     driver: local
   us-mongodb_data:
-    driver: local
-  ps-mongodb_data:
     driver: local
 # networks:
 #   our-custom-network:

@@ -1,12 +1,12 @@
-FROM node:dubnium-alpine AS base
-WORKDIR /opt/app
-COPY package.json package-lock.json /tmp/
+FROM node:12
+# RUN mkdir /opt/app/media_service/
+WORKDIR /app/mediaservice
 
-FROM base AS dependencies
-RUN cd /tmp && npm install --no-optional && npm cache clean --force
+COPY package.json package-lock.json /app/mediaservice/
 
-FROM base AS development
-COPY . .
-COPY --from=dependencies /tmp/node_modules ./node_modules
+RUN npm cache clean --force && npm install --no-optional
 
+COPY . /app/mediaservice/
+
+RUN npm run build
 CMD [ "npm", "start" ]

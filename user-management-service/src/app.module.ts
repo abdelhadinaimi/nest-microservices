@@ -13,7 +13,7 @@ const mongodbOptions: MongooseModuleOptions = {
     UsersModule,
     ConfigModule,
     // MONGODB CONNECTING EXAMPLE URI:  mongodb://username:password@mongodb-host:mongodb-port
-    MongooseModule.forRoot("mongodb://" + process.env.MONGO_USERNAME + ":" + process.env.MONGO_PASSWORD + "@" + process.env.MONGO_HOST + ":" + process.env.MONGO_PORT, mongodbOptions),
+    MongooseModule.forRoot("mongodb://" + process.env.MONGO_USERNAME + ":" + process.env.MONGO_PASSWORD + "@" + process.env.MONGO_HOST + ":" + process.env.MONGO_PORT + "/admin", mongodbOptions),
   ]
 })
 export class AppModule { }

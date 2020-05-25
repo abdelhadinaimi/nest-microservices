@@ -1,64 +1,84 @@
-version: "2"
-
+version: '2'
 services:
+  # redis:
+  #   image: 'bitnami/redis:5.0
+  #   environment:
+  #     # ALLOW_EMPTY_PASSWORD is recommended only for development.
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #     - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+  #   ports:
+  #     - '6379:6379'
+  #   volumes:
+  #     - 'redis_data:/bitnami/redis/data'
+
   redis:
-    image: 'bitnami/redis:5.0'
-    environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-    ports:
-      - '6379:6379'
-    volumes:
-      - 'redis_data:/bitnami/redis/data'
+    image: redis:latest
+    command: ['redis-server', '--bind', 'redis', '--port', '6379']
+    restart: always
+
+
+
   api:
-    build: "./api"
-    image: "abdelhadinaimi/moon_api"
+    build: './api'
+    # image: "abdelhadinaimi/moon_api"
     restart: always
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - redis
-  user-management-service:
-    build: "./user-management-service"
-    image: "abdelhadinaimi/moon_user-service"
-    restart: always
-    depends_on:
-      - redis
-      - us-mongodb
     env_file:
-      - us.env
+      - api.env
+
   media-service:
-    build: "./media-service"
-    image: "abdelhadinaimi/moon_media-service"
+    build: './media-service'
     restart: always
     depends_on:
       - redis
       - ms-mongodb
     env_file:
       - ms.env
+
+ 
+
+  user-management-service:
+    build: './user-management-service'
+    restart: always
+    depends_on:
+      - redis
+      - us-mongodb
+    env_file:
+      - us.env
+    
+
   ms-mongodb:
     image: mongo
     volumes:
-      - "ms-mongodb_data:/data/db"
-      - "./ms-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      - 'ms-mongodb_data:/data/db'
+      - './ms-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro'
     ports:
-      - "27017:27017"
+      - '27017:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: mediasDB
+
+
+
   us-mongodb:
     image: mongo
     volumes:
-      - "us-mongodb_data:/data/db"
-      - "./us-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      - 'us-mongodb_data:/data/db'
+      - './us-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro'
     ports:
-      - "27018:27017"
+      - '27019:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: usersDB
+
+
+
+
 volumes:
   redis_data:
     driver: local
@@ -66,3 +86,8 @@ volumes:
     driver: local
   us-mongodb_data:
     driver: local
+# networks:
+#   our-custom-network:
+#     # Use a custom driver
+#     # driver: custom-driver-1
+#     driver: bridge
